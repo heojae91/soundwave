@@ -163,13 +163,13 @@ public class BpskGenerator
     {
         for (int i = 0; i < (int)samplesPerSymbol; ++i)
         {
-            final double amplitude = Math.cos((radiansPerSample * currentSample++) + shift);
+            final double amplitude = Math.cos((radiansPerSample * currentSample++) + shift); // 여기서 shift가 되면 반대쪽으로 간다(비트값이 0이다)
 
             short s = (short) (Short.MAX_VALUE * 0.8 * amplitude);
 
-            buffer[2*sample] = (byte) ((s >>> 8) & 0xff);
-            buffer[2*sample+1] = (byte) ((s) & 0xff);
-            sample++;
+            buffer[2*sample] = (byte) ((s >>> 8) & 0xff); // 첫번째 바이트
+            buffer[2*sample+1] = (byte) ((s) & 0xff); // 두번째 바이트
+            sample++; // 수행한 샘플의 오프셋 추가
         }
 
         return sample;
